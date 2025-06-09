@@ -15,13 +15,20 @@
         margin-bottom: 45%;
         border: 3px solid #0066CC;
         border-radius: 10px;
+      
+      #searchtext {
+        width: 40%;
+      }
+
+      #searchtext:focus {
+        outline: 0;
       }
     </style>
   </head>
   <body>
     <div class="search">
       <form action="#">
-        <input type="text" id="searchtext">
+        <input type="text" id="searchtext" placeholder="ユーザー名を入力..." />
         <input type="submit" value="🔍" />
       </form>
     </div>
