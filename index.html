@@ -21,8 +21,18 @@
   <body>
     <div class="search">
       <form action="#">
-        
+        <input type="text" id="searchtext">
+        <input type="submit" value="🔍" />
       </form>
     </div>
+
+    <script>
+      document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // ページがリロードされるのを防ぐ
+
+        // フォームに入力されたデータを取得
+        const name = document.getElementById('searchtext').value;
+      });
+    </script>
   </body>
 </html>
