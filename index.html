@@ -41,15 +41,24 @@
         height: 50px;
         position: fixed;
       }
+
+      .header {
+        background-color: #0066CC;
+        position: fixed;
+        top: 0;
+        width: 100%
+        text-align: center;
+        height: 20%;
+      }
     </style>
   </head>
   <body>
+    <div class="header"><h1>新 scratch stats</h1></div>
     <div class="search">
       <form action="#">
         <input type="text" id="searchtext" placeholder="ユーザー名を入力..." /><input type="submit" value="🔍" id="searchbutton" />
       </form>
     </div>
-
     <script>
       document.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault(); // ページがリロードされるのを防ぐ
