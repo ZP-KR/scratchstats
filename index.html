@@ -79,9 +79,7 @@
         // フォームに入力されたデータを取得
         const name = document.getElementById('searchtext').value;
 
-        alert(name);
-
-        window.location.href(`https://scratchstats.f5.si/user?name=${name}`);
+        window.location.href = `https://scratchstats.f5.si/user?name=${name}`;
       });
     </script>
   </body>
