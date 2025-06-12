@@ -36,9 +36,31 @@
   </head>
   <body>
     <div class="header"></div><div class="headertext"><span onclick="header()"><h1>新 scratch stats</h1></span></div>
+    
     <script>
+      let data;
+      
       header() {
         window.location.href = `https://scratchstats.f5.si/`;
+      }
+
+      error() {
+        alert("リクエスト中にエラーが発生しました");
+      }
+
+      window.onload = function() {
+        const url = new URL(window.location.href);
+        const my_param = new URLSearchParams(url.search);
+        const entries = my_param.entries();
+        const user = entries.user;
+        fetch(`https://api.scratchstats.f5.si/user?user=${user}`)
+        .then(response => {
+          data = response.text();
+          
+        })
+        .catch(error => {
+          error();
+        });
       }
     </script>
   </body>
