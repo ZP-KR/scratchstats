@@ -65,8 +65,8 @@
         const my_param = new URLSearchParams(url.search);
         const user = my_param.get('user');
         fetch(`https://api.scratchstats.f5.si/user?user=${user}`)
-        .then(response => {
-          data = await response.text();
+        .then(response => response.json())
+        .then(data => {
           document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
         })
         .catch(error => {
