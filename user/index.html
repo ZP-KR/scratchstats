@@ -118,13 +118,36 @@
         const my_param = new URLSearchParams(url.search);
         const user = my_param.get('user');
         fetch(`https://api.scratchstats.f5.si/user?user=${user}`)
-        .then(response => response.json())
+        .then(response => {
+          // HTTPレスポンスが成功したかどうか（ステータスコード200-299）を確認
+          if (!response.ok) {
+            throw new Error(`HTTP エラー! ステータス: ${response.status} - ${response.statusText}`);
+          }
+          return response.json();
+        })
         .then(data => {
-          log("3");
-          document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
+          log("3: APIレスポンスを受信し、パースしました。");
+          log(`APIデータ: ${JSON.stringify(data)}`); // 検証のために受信した全データをログに出力
+
+          if (data && data.id) {
+            document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
+          } else {
+            log("エラー: APIレスポンスにユーザーIDが含まれていません。");
+            errorAlert("ユーザーIDが見つかりませんでした。");
+          }
+
+          // お気に入りと愛の数を更新（データが存在する場合）
+          if (data.favorites_count !== undefined) {
+              document.getElementById('favoritestext').textContent = data.favorites_count;
+          }
+          if (data.loves_count !== undefined) {
+              document.getElementById('lovestext').textContent = data.loves_count;
+          }
         })
         .catch(error => {
-          error();
+          // fetchが失敗した場合、特定のエラーメッセージをログに出力
+          log(`フェッチエラー: ${error.message}`); 
+          errorAlert(error.message); // エラーメッセージをアラート関数に渡す
         });
       }
     </script>
