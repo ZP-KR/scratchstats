@@ -51,9 +51,22 @@
         background-color: #EEEEFF;
         margin-top: 160px;
       }
+
+      #logcheck {
+        margin-top: 60px;
+        right: 0;
+      }
+
+      .class {
+        width: 20%;
+        height: 100%;
+        martin-top: 0px;
+      }
     </style>
   </head>
   <body>
+    <input type="checkbox" id="logcheck" name="logcheck" />
+    <div class="log"><aside><p>log:</p></aside></div>
     <div class="header"></div><div class="headertext"><span onclick="header()"><h1>新 scratch stats</h1></span></div>
     <div id="image"><img src="https://scratchstats.f5.si/images/first_icon.png" alt="icon" class="icon" /></div>
     <div class="favoritesandloves"><img src="https://scratchstats.f5.si/images/favorites.svg" alt="favorites" class="favorites" /><p class="favoritestxt">お気に入り</p><p id="favoritestext">-</p><img src="https://scratchstats.f5.si/images/loves.svg" alt="loves" class="loves" /><p class="lovestxt">お気に入り</p><p id="lovestext">-</p></div>
@@ -67,8 +80,16 @@
       function error() {
         alert("リクエスト中にエラーが発生しました");
       }
-
+      
       window.onload = function() {
+        getElementById('logcheck').addEventListener('change', function() {
+          const log = getElementByClassName('log');
+          if (this.checked) {
+            log.display = block;
+          } else {
+            log.display = none;
+          }
+        });
         const url = new URL(window.location.href);
         const my_param = new URLSearchParams(url.search);
         const user = my_param.get('user');
