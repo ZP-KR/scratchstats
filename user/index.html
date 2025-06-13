@@ -58,10 +58,12 @@
         margin-right: 0px;
       }
 
-      .class {
+      .log {
         width: 20%;
         height: 100%;
         martin-top: 0px;
+        text-align: left;
+        background-color: #DDEEFF;
       }
     </style>
   </head>
@@ -73,6 +75,19 @@
     <div class="favoritesandloves"><img src="https://scratchstats.f5.si/images/favorites.svg" alt="favorites" class="favorites" /><p class="favoritestxt">お気に入り</p><p id="favoritestext">-</p><img src="https://scratchstats.f5.si/images/loves.svg" alt="loves" class="loves" /><p class="lovestxt">お気に入り</p><p id="lovestext">-</p></div>
     <script>
       let data;
+
+      function log(log) {
+        // id属性で要素を取得
+        let textbox_element = document.getElementById('log');
+
+        // 新しいHTML要素を作成
+        let new_element = document.createElement('p');
+        new_element.textContent = log;
+
+        // 指定した要素の中の末尾に挿入
+        textbox_element.appendChild(new_element);
+      
+      }
       
       function header() {
         window.location.href = `https://scratchstats.f5.si/`;
@@ -83,20 +98,23 @@
       }
       
       window.onload = function() {
-        getElementById('logcheck').addEventListener('change', function() {
-          const log = getElementByClassName('log');
+        log("1");
+        document.getElementById('logcheck').addEventListener('change', function() {
+          const log = document.querySelector('.log');
           if (this.checked) {
-            log.display = block;
+            log.style.display = block;
           } else {
-            log.display = none;
+            log.style.display = none;
           }
         });
+        log("2");
         const url = new URL(window.location.href);
         const my_param = new URLSearchParams(url.search);
         const user = my_param.get('user');
         fetch(`https://api.scratchstats.f5.si/user?user=${user}`)
         .then(response => response.json())
         .then(data => {
+          log("3");
           document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
         })
         .catch(error => {
