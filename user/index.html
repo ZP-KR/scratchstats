@@ -17,7 +17,7 @@
         position: fixed;
         top: 0px;
         left: 0px;
-        width: 120%;
+        width: 100%;
         text-align: center;
         height: 50px;
         margin-left: -10px;
@@ -63,11 +63,10 @@
       window.onload = function() {
         const url = new URL(window.location.href);
         const my_param = new URLSearchParams(url.search);
-        const entries = my_param.entries();
-        const user = entries.user;
+        const user = my_param.get('user');
         fetch(`https://api.scratchstats.f5.si/user?user=${user}`)
         .then(response => {
-          data = response.text();
+          data = await response.text();
           document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
         })
         .catch(error => {
