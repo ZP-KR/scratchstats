@@ -68,7 +68,7 @@
         fetch(`https://api.scratchstats.f5.si/user?user=${user}`)
         .then(response => {
           data = response.text();
-          document.getElementById('image').innerHTML = '<img src="https://uploads.scratch.mit.edu/get_image/project/510186917_307x246.png" alt="icon" class="icon" />';
+          document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
         })
         .catch(error => {
           error();
