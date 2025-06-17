@@ -10,6 +10,7 @@
     <style>
       body {
         background-color: #DDEEFF;
+        font-family: sans-serif;
       }
       
       .header {
@@ -33,7 +34,6 @@
         z-index: 999;
         margin-top: -20px;
         margin-left: -8px;
-        font-family: sans-serif;
         background-color: #4e97fe;
       }
 
@@ -171,7 +171,7 @@
 
           if (data && data.id) {
             document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
-            document.querySelector('.username').innerHTML = `<a href="https://scratch.mit.edu/users/${data.username}/><p>${data.username}</p></a>`;
+            document.querySelector('.username').innerHTML = `<a href="https://scratch.mit.edu/users/${data.username}/"><p>${data.username}</p></a>`;
           } else {
             log("エラー: APIレスポンスにユーザーIDが含まれていません。");
             errorAlert("ユーザーIDが見つかりませんでした。");
