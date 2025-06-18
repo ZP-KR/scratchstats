@@ -172,7 +172,7 @@
 
           if (data && data.id) {
             document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
-            document.querySelector('.username').innerHTML = `<a href="https://scratch.mit.edu/users/${data.username}/"><p>${data.username}</p></a>`;
+            document.querySelector('.username').innerHTML = `<a href="https://scratch.mit.edu/users/${data.username}/" target="_blank"><p>${data.username}</p></a>`;
           } else {
             log("エラー: APIレスポンスにユーザーIDが含まれていません。");
             errorAlert("ユーザーIDが見つかりませんでした。");
