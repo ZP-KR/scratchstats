@@ -40,7 +40,7 @@
       }
 
       .icon {
-        display: block;      /* ★これによってブロック要素になります */
+        display: block;        /* ★これによってブロック要素になります */
         margin: 80px auto 0 auto;
         border-radius: 10px;
         width: 100px;
@@ -113,28 +113,32 @@
         color: #635c65;
       }
 
-      .follows-info {
-        display: flex;
-        align-items: center;
-        margin-right: 50px;
-      }
-
-      .followers-info {
-        display: flex;
-        align-items: center;
-        margin-left: 50px;
-      }
-
+      /* --- 新しい/修正されたCSS --- */
       .follow {
         border: 1px solid #0066CC;
         border-radius: 10px;
         background-color: #EEEEFF;
         margin-top: 30px;
-        display: flex;
+        display: flex; /* これが重要！子要素をflexアイテムにします */
         align-items: center;
-        gap: 3px;
-        justify-content: center;
+        justify-content: center; /* 2つのフォロー情報ブロックを中央に配置します */
         height: 50px;
+      }
+
+      .follow-info { /* 既存のクラスを再利用 */
+        display: flex; /* 各情報ブロック内の画像とテキストをflexアイテムにします */
+        align-items: center;
+        gap: 5px; /* アイコンとテキストの間に小さな間隔を追加します */
+        /* ここでは特定の左右のマージンは不要です。親要素のgapまたは子要素のマージンで間隔を調整します */
+      }
+      
+      /* 「フォロー」と「フォロワー」のセクション間の間隔を追加します */
+      .follows-section { /* 左側のブロックの新しいクラス */
+          margin-right: 50px; /* 必要に応じて調整してください */
+      }
+      
+      .followers-section { /* 右側のブロックの新しいクラス */
+          /* 最初の要素にmargin-rightを使用している場合、ここでは特定のmarginは不要です */
       }
 
       .follows,
@@ -147,9 +151,8 @@
       .followerstxt,
       #followstext,
       #followerstext {
-        /* テキストのスタイル調整 */
-        margin: 0; /* デフォルトのマージンをリセット */
-        white-space: nowrap; /* テキストの折り返しを防ぐ */
+        margin: 0;
+        white-space: nowrap;
         color: #635c65;
       }
     </style>
@@ -161,29 +164,31 @@
     <div id="image"><img src="https://scratchstats.f5.si/images/first_icon.png" alt="icon" class="icon" /></div>
     <div class="username"><p>読み込み中...</p></div>
     <div class="favoritesandloves"><div class="favorites-info"><img src="https://scratchstats.f5.si/images/favorites.svg" alt="favorites" class="favorites" /><p class="favoritestxt">をつけた数:</p><p id="favoritestext">-</p></div><img src="https://scratchstats.f5.si/images/loves.svg" alt="loves" class="loves" /><p class="lovestxt">をつけた数:</p><p id="lovestext">-</p></div>
-    <div class="follow"><div class="follow-info"><img src="https://scratchstats.f5.si/images/follows.svg" alt="follows" class="follows" /><p class="followstxt">フォロー数</p><p id="followstext">-</p></div><div class="follow-info"><img src="https://scratchstats.f5.si/images/follows.svg" alt="followers" class="follows" /><p class="followerstxt">フォロー数</p><p id="followerstext">-</p></div></div>
+    <div class="follow">
+      <div class="follow-info follows-section"> <img src="https://scratchstats.f5.si/images/follows.svg" alt="follows" class="follows" />
+        <p class="followstxt">フォロー数</p>
+        <p id="followstext">-</p>
+      </div>
+      <div class="follow-info followers-section"> <img src="https://scratchstats.f5.si/images/follows.svg" alt="followers" class="follows" />
+        <p class="followerstxt">フォロワー数</p> <p id="followerstext">-</p>
+      </div>
+    </div>
     <script>
       let data;
 
       function log(log) {
-        // id属性で要素を取得
         let textbox_element = document.getElementById('log');
-
-        // 新しいHTML要素を作成
         let new_element = document.createElement('p');
         new_element.textContent = log;
-
-        // 指定した要素の中の末尾に挿入
         textbox_element.appendChild(new_element);
-      
       }
       
       function header() {
         window.location.href = `https://scratchstats.f5.si/`;
       }
 
-      function error() {
-        alert("リクエスト中にエラーが発生しました");
+      function errorAlert(message) { // グローバルなerrorオブジェクトとの競合を避けるため関数名を変更
+        alert(`リクエスト中にエラーが発生しました: ${message}`);
       }
       
       window.onload = function() {
@@ -203,7 +208,6 @@
         log(user);
         fetch(`https://api.scratchstats.f5.si/user?user=${user}`)
         .then(response => {
-          // HTTPレスポンスが成功したかどうか（ステータスコード200-299）を確認
           if (!response.ok) {
             throw new Error(`HTTP エラー! ステータス: ${response.status} - ${response.statusText}`);
           }
@@ -211,7 +215,7 @@
         })
         .then(data => {
           log("3: APIレスポンスを受信し、パースしました。");
-          log(`APIデータ: ${JSON.stringify(data)}`); // 検証のために受信した全データをログに出力
+          log(`APIデータ: ${JSON.stringify(data)}`);
 
           if (data && data.id) {
             document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
@@ -221,18 +225,22 @@
             errorAlert("ユーザーIDが見つかりませんでした。");
           }
 
-          // お気に入りと愛の数を更新（データが存在する場合）
           if (data.favorites_count !== undefined) {
               document.getElementById('favoritestext').textContent = data.favorites_count;
           }
           if (data.loves_count !== undefined) {
               document.getElementById('lovestext').textContent = data.loves_count;
           }
+          if (data.following !== undefined) {
+              document.getElementById('followstext').textContent = data.following;
+          }
+          if (data.follower !== undefined) {
+              document.getElementById('followerstext').textContent = data.follower;
+          }
         })
         .catch(error => {
-          // fetchが失敗した場合、特定のエラーメッセージをログに出力
           log(`フェッチエラー: ${error.message}`); 
-          errorAlert(error.message); // エラーメッセージをアラート関数に渡す
+          errorAlert(error.message);
         });
       }
     </script>
