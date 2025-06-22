@@ -112,6 +112,46 @@
         white-space: nowrap; /* テキストの折り返しを防ぐ */
         color: #635c65;
       }
+
+      .follows-info {
+        display: flex;
+        align-items: center;
+        margin-right: 50px;
+      }
+
+      .followers-info {
+        display: flex;
+        align-items: center;
+        margin-left: 50px;
+      }
+
+      .follow {
+        border: 1px solid #0066CC;
+        border-radius: 10px;
+        background-color: #EEEEFF;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        justify-content: center;
+        height: 50px;
+      }
+
+      .follows,
+      .followers {
+        height: 30px;
+        width: 30px;
+      }
+
+      .followstxt,
+      .followerstxt,
+      #followstext,
+      #followerstext {
+        /* テキストのスタイル調整 */
+        margin: 0; /* デフォルトのマージンをリセット */
+        white-space: nowrap; /* テキストの折り返しを防ぐ */
+        color: #635c65;
+      }
     </style>
   </head>
   <body>
@@ -121,7 +161,7 @@
     <div id="image"><img src="https://scratchstats.f5.si/images/first_icon.png" alt="icon" class="icon" /></div>
     <div class="username"><p>読み込み中...</p></div>
     <div class="favoritesandloves"><div class="favorites-info"><img src="https://scratchstats.f5.si/images/favorites.svg" alt="favorites" class="favorites" /><p class="favoritestxt">をつけた数:</p><p id="favoritestext">-</p></div><img src="https://scratchstats.f5.si/images/loves.svg" alt="loves" class="loves" /><p class="lovestxt">をつけた数:</p><p id="lovestext">-</p></div>
-    <div class="follow"><div class="follow-info"><img src="https://scratchstats.f5.si/images/follows.svg" alt="follows" class="follows" /></div></div>
+    <div class="follow"><div class="follow-info"><img src="https://scratchstats.f5.si/images/follows.svg" alt="follows" class="follows" /><p class="followstxt">フォロー数</p><p id="followstext">-</p></div><div class="follow-info"><img src="https://scratchstats.f5.si/images/follows.svg" alt="followers" class="follows" /><p class="followerstxt">フォロー数</p><p id="followerstext">-</p></div></div>
     <script>
       let data;
 
