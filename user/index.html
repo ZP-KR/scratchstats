@@ -169,7 +169,8 @@
     <div id="log" class="log" style="display: none;"><aside><p>log:</p></aside></div>
     <div class="header"></div><div class="headertext"><span onclick="header()"><h1>新 scratch stats</h1></span></div>
     <div id="image"><img src="https://scratchstats.f5.si/images/first_icon.png" alt="icon" class="icon" /></div>
-    <div class="username"><p>読み込み中...</p></div><div class="id"><p></p></div>
+    <div class="username"><p>読み込み中...</p></div>
+    <div class="id"><p></p></div>
     <div class="favoritesandloves"><div class="favorites-info"><img src="https://scratchstats.f5.si/images/favorites.svg" alt="favorites" class="favorites" /><p class="favoritestxt">をつけた数:</p><p id="favoritestext">-</p></div><img src="https://scratchstats.f5.si/images/loves.svg" alt="loves" class="loves" /><p class="lovestxt">をつけた数:</p><p id="lovestext">-</p></div>
     <div class="follow">
       <div class="follow-info follows-section"> <img src="https://scratchstats.f5.si/images/follows.svg" alt="follows" class="follows" />
@@ -227,7 +228,7 @@
           if (data && data.id) {
             document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
             document.querySelector('.username').innerHTML = `<a href="https://scratch.mit.edu/users/${data.username}/" target="_blank"><p>${data.username}</p></a>`;
-            document.querySelector('.username').innerHTML = `<p>${data.id}</p>`;
+            document.querySelector('.id').innerHTML = `<p>${data.id}</p>`;
           } else {
             log("エラー: APIレスポンスにユーザーIDが含まれていません。");
             errorAlert("ユーザーIDが見つかりませんでした。");
