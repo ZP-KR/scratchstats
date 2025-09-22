@@ -234,6 +234,10 @@
             errorAlert("ユーザーIDが見つかりませんでした。");
           }
         })
+        .catch(error => {
+          log(`フェッチエラー: ${error.message}`); 
+          errorAlert(error.message);
+        });
         
         fetch(`https://api.scratchstats.f5.si/connection?user=${user}`)
         .then(response => {
@@ -253,6 +257,11 @@
               document.getElementById('lovestext').textContent = data.loves_count;
           }
         })
+        .catch(error => {
+          log(`フェッチエラー: ${error.message}`); 
+          errorAlert(error.message);
+        });
+        
         fetch(`https://api.scratchstats.f5.si/follow?user=${user}`)
         .then(response => {
           if (!response.ok) {
