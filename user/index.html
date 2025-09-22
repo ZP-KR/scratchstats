@@ -214,7 +214,7 @@
         const my_param = new URLSearchParams(url.search);
         const user = my_param.get('user');
         log(user);
-        fetch(`https://api.scratchstats.f5.si/detail?user=${user}`)
+        fetch(`https://api.scratchstats.f5.si/user/detail?user=${user}`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP エラー! ステータス: ${response.status} - ${response.statusText}`);
@@ -239,7 +239,7 @@
           errorAlert(error.message);
         });
         
-        fetch(`https://api.scratchstats.f5.si/connection?user=${user}`)
+        fetch(`https://api.scratchstats.f5.si/user/connection?user=${user}`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP エラー! ステータス: ${response.status} - ${response.statusText}`);
@@ -262,7 +262,7 @@
           errorAlert(error.message);
         });
         
-        fetch(`https://api.scratchstats.f5.si/follow?user=${user}`)
+        fetch(`https://api.scratchstats.f5.si/user/follow?user=${user}`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP エラー! ステータス: ${response.status} - ${response.statusText}`);
