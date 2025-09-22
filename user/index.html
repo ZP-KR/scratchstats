@@ -226,7 +226,7 @@
           log(`APIデータ: ${JSON.stringify(data)}`);
 
           if (data && data.user_id) {
-            document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.id}_300x300.png" alt="icon" class="icon" />`;
+            document.getElementById('image').innerHTML = `<img src="https://uploads.scratch.mit.edu/get_image/user/${data.user_id}_300x300.png" alt="icon" class="icon" />`;
             document.querySelector('.username').innerHTML = `<a href="https://scratch.mit.edu/users/${data.username}/" target="_blank"><p>${data.username}</p></a>`;
             document.querySelector('.id').innerHTML = `<p>${data.user_id}</p>`;
           } else {
