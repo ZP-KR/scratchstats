@@ -132,6 +132,37 @@
         height: 50px;
       }
 
+      .project {
+        border: 1px solid #0066CC;
+        border-radius: 10px;
+        background-color: #EEEEFF;
+        margin-top: 30px;
+        display: flex; /* これが重要！子要素をflexアイテムにします */
+        align-items: center;
+        justify-content: center; /* 2つのフォロー情報ブロックを中央に配置します */
+        width: 80%;
+      }
+
+      .project-left {
+        margin-left: 30px;
+        display: flex; /* これが重要！子要素をflexアイテムにします */
+        align-items: center;
+        justify-content: center; /* 2つのフォロー情報ブロックを中央に配置します */
+      }
+
+      .project-center {
+        display: flex; /* これが重要！子要素をflexアイテムにします */
+        align-items: center;
+        justify-content: center; /* 2つのフォロー情報ブロックを中央に配置します */
+      }
+
+      .project-right {
+        margin-right: 30px;
+        display: flex; /* これが重要！子要素をflexアイテムにします */
+        align-items: center;
+        justify-content: center; /* 2つのフォロー情報ブロックを中央に配置します */
+      }
+
       .follow-info { /* 既存のクラスを再利用 */
         display: flex; /* 各情報ブロック内の画像とテキストをflexアイテムにします */
         align-items: center;
@@ -180,6 +211,8 @@
       <div class="follow-info followers-section"> <img src="https://scratchstats.f5.si/images/follows.svg" alt="followers" class="follows" />
         <p class="followerstxt">フォロワー数</p> <p id="followerstext">-</p>
       </div>
+    </div>
+    <div class="project">
     </div>
     <script>
       let data;
