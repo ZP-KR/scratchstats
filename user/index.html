@@ -137,9 +137,9 @@
         border-radius: 10px;
         background-color: #EEEEFF;
         margin-top: 30px;
-        display: flex; /* これが重要！子要素をflexアイテムにします */
+        display: flex;
         align-items: center;
-        justify-content: center; /* 2つのフォロー情報ブロックを中央に配置します */
+        justify-content: center;
         width: 80%;
       }
 
@@ -317,6 +317,26 @@
           log(`フェッチエラー: ${error.message}`); 
           errorAlert(error.message);
         });
+        fetch(`https://api.scratchstats.f5.si/user/project?user=${user}&offset=3`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP エラー! ステータス: ${response.status} - ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const project_area = document.querySelector(".project")
+          if (data.length == 0) {
+            project_area.innerHTML = '<div class="project-center"><p>プロジェクトを共有していないようです。</p></div>";
+          } else {
+            const position = ["left", "center", "right"];
+            let number = 0;
+            for (const project in data) {
+              project_area.appendChild(`<div class=${position[number]}`);
+              number += 1;            
+            }
+          }
+        })
       }
     </script>
   </body>
