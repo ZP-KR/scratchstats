@@ -320,23 +320,49 @@
         fetch(`https://api.scratchstats.f5.si/user/project?user=${user}&offset=3`)
         .then(response => {
           if (!response.ok) {
-            throw new Error(`HTTP エラー! ステータス: ${response.status} - ${response.statusText}`);
+            throw new Error(`HTTP エラー! ステータス: ${response.status}`);
           }
           return response.json();
         })
         .then(data => {
-          const project_area = document.querySelector(".project")
-          if (data.length == 0) {
-            project_area.innerHTML = '<div class="project-center"><p>プロジェクトを共有していないようです。</p></div>";
-          } else {
-            const position = ["left", "center", "right"];
-            let number = 0;
-            for (const project in data) {
-              project_area.appendChild(`<div class=${position[number]}`);
-              number += 1;            
-            }
+          const projectArea = document.querySelector(".project");
+
+          // プロジェクトがひとつもない場合
+          if (!data || data.length === 0) {
+            projectArea.innerHTML = 
+              '<div class="project-center"><p>プロジェクトを共有していないようです。</p></div>';
+            return;
           }
+
+          // プロジェクトを 3 つまで表示（left, center, right 用のクラスを想定）
+          const positions = ["left", "center", "right"];
+          projectArea.innerHTML = "";  // まず空にする
+
+          data.slice(0, 3).forEach((proj, idx) => {
+            // 1. コンテナを作成
+            const container = document.createElement("div");
+            container.className = `project-${positions[idx]}`;
+
+            // 2. サムネイル画像（例）を作成
+            const img = document.createElement("img");
+            img.src = `https://uploads.scratch.mit.edu/projects/${proj.id}_480x360.png`;
+            img.alt = proj.title || "プロジェクトのサムネイル";
+            img.style.maxWidth = "100%";
+
+            // 3. タイトルを作成
+            const caption = document.createElement("p");
+            caption.textContent = proj.title || "（無題）";
+
+            // 4. DOM に追加
+            container.appendChild(img);
+            container.appendChild(caption);
+            projectArea.appendChild(container);
+          });
         })
+        .catch(error => {
+          console.error("プロジェクト取得エラー:", error);
+          alert(`プロジェクトの読み込みに失敗しました: ${error.message}`);
+        });
       }
     </script>
   </body>
